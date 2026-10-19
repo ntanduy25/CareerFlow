@@ -1,6 +1,6 @@
 import React from 'react';
-import { Application, ApplicationStatus } from '../types';
-import { ExternalLink, Calendar, Banknote, MoreHorizontal } from 'lucide-react';
+import type { Application, ApplicationStatus } from '../types';
+import { ExternalLink, Calendar, Banknote } from 'lucide-react';
 
 interface ApplicationCardProps {
   application: Application;

@@ -1,4 +1,4 @@
-import {
+import type {
   AuthResponse,
   User,
   Application,

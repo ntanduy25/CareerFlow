@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Application, ApplicationCreateInput, ApplicationStatus } from '../types';
+import type { Application, ApplicationCreateInput, ApplicationStatus } from '../types';
 import { X, Building2, Briefcase, Link2, DollarSign, Calendar, FileText } from 'lucide-react';
 
 interface ApplicationModalProps {

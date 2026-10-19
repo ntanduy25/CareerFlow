@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Application, ApplicationStatus } from '../types';
+import type { Application, ApplicationStatus } from '../types';
 import { ApplicationCard } from './ApplicationCard';
 import {
   Bookmark,

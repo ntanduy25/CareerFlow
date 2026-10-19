@@ -1,5 +1,5 @@
 import React from 'react';
-import { DashboardSummary, Reminder } from '../types';
+import type { DashboardSummary, Reminder } from '../types';
 import {
   Briefcase,
   TrendingUp,
