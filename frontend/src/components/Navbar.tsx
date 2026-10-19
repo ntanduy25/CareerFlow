@@ -1,12 +1,13 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Briefcase, LogOut, Plus, User as UserIcon } from 'lucide-react';
+import { Briefcase, LogOut, Plus, Sparkles, User as UserIcon } from 'lucide-react';
 
 interface NavbarProps {
   onOpenCreateModal: () => void;
+  onOpenAIAnalyzer: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenCreateModal }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenCreateModal, onOpenAIAnalyzer }) => {
   const { user, logout } = useAuth();
 
   return (
@@ -31,8 +32,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCreateModal }) => {
         {/* Actions & Profile */}
         <div className="flex items-center gap-3">
           <button
+            onClick={onOpenAIAnalyzer}
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 hover:border-purple-300 text-purple-700 hover:text-purple-900 rounded-xl text-xs font-bold transition-all shadow-sm"
+          >
+            <Sparkles className="w-4 h-4 text-purple-600" />
+            <span className="hidden sm:inline">Phân tích CV AI</span>
+          </button>
+
+          <button
             onClick={onOpenCreateModal}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white rounded-lg text-sm font-medium transition-colors shadow-sm shadow-indigo-200"
+            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white rounded-xl text-xs font-bold transition-colors shadow-sm shadow-indigo-200"
           >
             <Plus className="w-4 h-4" />
             <span>Thêm đơn mới</span>

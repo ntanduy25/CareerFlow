@@ -9,6 +9,7 @@ import type {
   ApplicationUpdateInput,
   ApplicationStatus,
   Reminder,
+  ResumeAnalysisResult,
 } from '../types';
 
 const API_BASE = '/api/v1';
@@ -150,6 +151,32 @@ class ApiClient {
   // Dashboard Endpoints
   async getDashboardSummary(): Promise<DashboardSummary> {
     return this.request<DashboardSummary>('/dashboard/summary');
+  }
+
+  // AI Resume Analyzer Endpoints
+  async analyzeResume(cvFile: File, jobDescription: string): Promise<ResumeAnalysisResult> {
+    const token = this.getToken();
+    const formData = new FormData();
+    formData.append('cv_file', cvFile);
+    formData.append('job_description', jobDescription);
+
+    const headers: Record<string, string> = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${API_BASE}/ai/analyze-resume`, {
+      method: 'POST',
+      headers,
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.detail || 'Không thể phân tích CV.');
+    }
+
+    return response.json();
   }
 }
 

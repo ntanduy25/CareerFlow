@@ -8,6 +8,7 @@ import { KanbanBoard } from '../components/KanbanBoard';
 import { ApplicationListView } from '../components/ApplicationListView';
 import { ApplicationModal } from '../components/ApplicationModal';
 import { ApplicationDetailModal } from '../components/ApplicationDetailModal';
+import { ResumeAnalyzerModal } from '../components/ResumeAnalyzerModal';
 
 export const DashboardPage: React.FC = () => {
   const [applications, setApplications] = useState<Application[]>([]);
@@ -25,6 +26,9 @@ export const DashboardPage: React.FC = () => {
   const [createModalDefaultStatus, setCreateModalDefaultStatus] = useState<ApplicationStatus>('SAVED');
   const [editingApplication, setEditingApplication] = useState<Application | null>(null);
   const [selectedAppIdForDetail, setSelectedAppIdForDetail] = useState<string | null>(null);
+  const [isAIModalOpen, setIsAIModalOpen] = useState<boolean>(false);
+  const [aiInitialJD, setAiInitialJD] = useState<string>('');
+  const [aiTargetCompany, setAiTargetCompany] = useState<string>('');
 
   const fetchData = useCallback(async (showRefreshing = false) => {
     if (showRefreshing) setIsRefreshing(true);
@@ -111,11 +115,18 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar onOpenCreateModal={() => {
-        setEditingApplication(null);
-        setCreateModalDefaultStatus('SAVED');
-        setIsCreateModalOpen(true);
-      }} />
+      <Navbar
+        onOpenCreateModal={() => {
+          setEditingApplication(null);
+          setCreateModalDefaultStatus('SAVED');
+          setIsCreateModalOpen(true);
+        }}
+        onOpenAIAnalyzer={() => {
+          setAiInitialJD('');
+          setAiTargetCompany('');
+          setIsAIModalOpen(true);
+        }}
+      />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* KPI Dashboard */}
@@ -187,6 +198,18 @@ export const DashboardPage: React.FC = () => {
         onDelete={handleDeleteApplication}
         onStatusChange={handleStatusChange}
         onApplicationUpdated={fetchData}
+        onOpenAIAnalyzer={(notes, company) => {
+          setAiInitialJD(notes);
+          setAiTargetCompany(company);
+          setIsAIModalOpen(true);
+        }}
+      />
+
+      <ResumeAnalyzerModal
+        isOpen={isAIModalOpen}
+        onClose={() => setIsAIModalOpen(false)}
+        initialJobDescription={aiInitialJD}
+        targetCompany={aiTargetCompany}
       />
     </div>
   );

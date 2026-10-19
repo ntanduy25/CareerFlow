@@ -15,6 +15,7 @@ import {
   Plus,
   CheckCircle2,
   Circle,
+  Sparkles,
 } from 'lucide-react';
 
 interface ApplicationDetailModalProps {
@@ -25,6 +26,7 @@ interface ApplicationDetailModalProps {
   onDelete: (appId: string) => void;
   onStatusChange: (appId: string, newStatus: ApplicationStatus) => void;
   onApplicationUpdated: () => void;
+  onOpenAIAnalyzer?: (jobNotes: string, company: string) => void;
 }
 
 export const ApplicationDetailModal: React.FC<ApplicationDetailModalProps> = ({
@@ -35,6 +37,7 @@ export const ApplicationDetailModal: React.FC<ApplicationDetailModalProps> = ({
   onDelete,
   onStatusChange,
   onApplicationUpdated,
+  onOpenAIAnalyzer,
 }) => {
   const [detail, setDetail] = useState<ApplicationDetail | null>(null);
   const [loading, setLoading] = useState(false);
@@ -187,6 +190,21 @@ export const ApplicationDetailModal: React.FC<ApplicationDetailModalProps> = ({
           <div className="flex items-center gap-2">
             {detail && (
               <>
+                {onOpenAIAnalyzer && (
+                  <button
+                    onClick={() =>
+                      onOpenAIAnalyzer(
+                        detail.notes || `Tuyển dụng ${detail.job_title} tại ${detail.company_name}`,
+                        detail.company_name
+                      )
+                    }
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors border border-purple-200 shadow-sm"
+                    title="Phân tích độ phù hợp CV với vị trí này"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                    <span className="hidden sm:inline">Phân tích CV</span>
+                  </button>
+                )}
                 <button
                   onClick={() => onEdit(detail)}
                   className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"

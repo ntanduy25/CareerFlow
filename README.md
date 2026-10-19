@@ -91,31 +91,52 @@ Truy cập tài liệu API tương tác tại:
 - **Email:** `demo@careerflow.dev`
 - **Mật khẩu:** `password123`
 
+### 2. Khởi chạy Frontend (React + TypeScript + Vite)
+
+```bash
+# 1. Mở một tab terminal mới và di chuyển vào thư mục frontend
+cd frontend
+
+# 2. Cài đặt dependencies (nếu chưa cài)
+npm install
+
+# 3. Khởi chạy Vite Dev Server
+npm run dev
+```
+
+Truy cập giao diện ứng dụng tại:
+👉 **`http://localhost:5173`**
+
+*(Frontend đã tích hợp tính năng **1-Click Demo Login** để tự động đăng nhập nhanh tài khoản demo `demo@careerflow.dev`)*
+
 ---
 
-## 🧪 Chạy Kiểm thử (Pytest)
+## 🧪 Chạy Kiểm thử Backend (Pytest)
 
 ```bash
 cd backend
-pytest -v
+.\venv\Scripts\pytest.exe -v
 ```
 
-Toàn bộ 11 test cases kiểm tra đăng ký, đăng nhập, phân quyền cô lập dữ liệu (User A không thể xem/sửa đơn của User B), tính toán dashboard và CRUD reminders.
+Toàn bộ **13/13 test cases** kiểm tra đăng ký, đăng nhập, phân quyền cô lập dữ liệu (Multi-tenancy isolation), chuỗi lịch sử chuyển trạng thái, dashboard và AI skill matching.
 
 ---
 
-## 🐳 Khởi chạy bằng Docker Compose
+## 🐳 Khởi chạy Full-stack bằng Docker Compose
 
 ```bash
 docker-compose up --build -d
 ```
-Ứng dụng và database PostgreSQL sẽ tự động khởi động tại cổng `8000` và `5432`.
+Ứng dụng hoàn chỉnh sẽ sẵn sàng:
+- **Frontend Web UI:** `http://localhost:3000`
+- **Backend API Docs:** `http://localhost:8000/docs`
+- **PostgreSQL Database:** cổng `5432`
 
 ---
 
-## 🗺️ Lộ trình phát triển tiếp theo
+## 🗺️ Lộ trình phát triển
 
-- [x] **Phase 1: Backend MVP Core & Security** (Hoàn thành)
-- [ ] **Phase 2: Frontend React + TypeScript + Vite + Tailwind** (Tiếp theo)
-- [ ] **Phase 3: V1.1 AI Resume Analyzer** (Trích xuất PDF và chấm điểm độ phù hợp qua NLP)
-- [ ] **Phase 4: Triển khai Online** (Frontend trên Vercel, Backend trên Render / Railway, DB trên Supabase)
+- [x] **Phase 1: Backend MVP Core & Security** (FastAPI, SQLAlchemy, Argon2, JWT, SQLite/PostgreSQL)
+- [x] **Phase 2: Frontend Modern UI** (React 19, TypeScript, Vite, Tailwind CSS, Kanban Drag-and-Drop, Table List, KPI Dashboard)
+- [x] **Phase 3: V1.1 AI Resume Analyzer** (Trích xuất văn bản từ PDF qua `pypdf`, đối chiếu từ khóa kỹ năng với JD, chấm điểm % phù hợp và đưa ra lời khuyên tối ưu)
+- [ ] **Phase 4: Triển khai Online** (Frontend trên Vercel, Backend trên Render / Railway, Database trên Supabase)

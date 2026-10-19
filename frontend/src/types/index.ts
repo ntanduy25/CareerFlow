@@ -90,3 +90,12 @@ export interface ApplicationUpdateInput {
   applied_at?: string | null;
   notes?: string | null;
 }
+
+export interface ResumeAnalysisResult {
+  match_score: number;
+  matched_skills: string[];
+  missing_skills: string[];
+  cv_skills: string[];
+  jd_skills: string[];
+  recommendations: string[];
+}
