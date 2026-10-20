@@ -1,7 +1,11 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List, Union
+from pathlib import Path
 import json
 from pydantic import field_validator
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+DEFAULT_DB_PATH = (BASE_DIR / "careerflow.db").as_posix()
 
 
 class Settings(BaseSettings):
@@ -15,7 +19,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
 
     # Database: Supports SQLite (sqlite:///./careerflow.db) or PostgreSQL (postgresql://user:pass@localhost:5432/careerflow)
-    DATABASE_URL: str = "sqlite:///./careerflow.db"
+    DATABASE_URL: str = f"sqlite:///{DEFAULT_DB_PATH}"
 
     # CORS
     BACKEND_CORS_ORIGINS: Union[List[str], str] = [
